@@ -26,5 +26,15 @@
     "goodWith": "Adults, teens, medium/large dogs",
     "medical": "Neutered, Vaccinated, Heartworm negative",
     "status": "Urgent"
+  },
+  {
+    "name": "Cujo",
+    "photo": "images/dog-1773420079998.jpg",
+    "age": "3 Months",
+    "size": "Large",
+    "gender": "Male",
+    "breed": "Golden Retriever",
+    "shortBio": "Full of life. Cheeky. Loveable.",
+    "fullBio": ""
   }
 ]
