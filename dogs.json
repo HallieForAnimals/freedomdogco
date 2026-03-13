@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "name": "New Dog",
+    "photo": "images/dog-1773427156575.jpg",
+    "age": "adult",
+    "size": "large",
+    "gender": "female",
+    "breed": "sadfgsd",
+    "shortBio": "dsafgsdfg",
+    "fullBio": "sdfgsdgfsd"
+  },
+  {
+    "name": "New Dog 2",
+    "photo": "images/dog-1773427178083.jpg",
+    "age": "young",
+    "size": "medium",
+    "gender": "female",
+    "breed": "asgasdfg",
+    "shortBio": "asdfasdfa",
+    "fullBio": "asdfasfas"
+  }
+]
