@@ -1,0 +1,11 @@
+{
+  "copyright": "© 2026 Rescue Haven – All Rights Reserved",
+  "links": [
+    { "text": "Privacy Policy", "url": "/privacy.html" },
+    { "text": "Terms of Use", "url": "/terms.html" }
+  ],
+  "social": [
+    { "platform": "facebook", "url": "https://facebook.com/rescuehaven" },
+    { "platform": "instagram", "url": "https://instagram.com/rescuehaven" }
+  ]
+}
