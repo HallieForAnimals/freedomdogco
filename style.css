@@ -47,14 +47,15 @@ nav {
   text-decoration: none;
   letter-spacing: 0.05em;
   display: inline-flex;
-  align-items: stretch;
+  align-items: center;
   gap: 0.6rem;
 }
 
 .logo .logo-img {
-  height: 100%;
+  height: 2.2em;
   width: auto;
   object-fit: contain;
+  align-self: center;
 }
 
 .logo .logo-text {
