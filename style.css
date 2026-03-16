@@ -46,6 +46,20 @@ nav {
   color: var(--gold);
   text-decoration: none;
   letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logo .logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.1;
+}
+
+.logo .logo-line {
+  display: block;
 }
 
 .nav-links {
