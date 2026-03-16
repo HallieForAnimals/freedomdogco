@@ -1,0 +1,17 @@
+[
+  {
+    "key": "donate-cta",
+    "title": "Donate Today",
+    "body": "<p>Your gift provides food, medical care, and a safe place to stay for dogs in need.</p>",
+    "buttonText": "Donate Now",
+    "buttonUrl": "donate.html"
+  },
+  {
+    "key": "volunteer-cta",
+    "title": "Become a Volunteer",
+    "body": "<p>From walking dogs to helping at events, there are many ways to get involved.</p>",
+    "buttonText": "See Volunteer Roles",
+    "buttonUrl": "contact.html"
+  }
+]
+

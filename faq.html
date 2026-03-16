@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ | Rescue Haven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">RESCUE HAVEN</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="adoptable-dogs.html">Adoptable Dogs</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="donate.html">Donate</a>
+      <a href="faq.html" class="active">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<section class="page-container">
+  <h1 class="page-title">Frequently Asked Questions</h1>
+  <p class="page-subtitle">
+    Answers to the questions we hear most often about adoption, fostering, and supporting our work.
+  </p>
+
+  <div id="faq-list" class="faq-list">
+    <!-- Filled by loadFaq() -->
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Rescue Haven – All Rights Reserved</p>
+</footer>
+
+<script>
+async function loadFaq() {
+  const container = document.getElementById('faq-list');
+  container.innerHTML = '<p class="no-results">Loading questions…</p>';
+
+  try {
+    let url;
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      url = 'https://raw.githubusercontent.com/ProtectThePack/page-updater-proto/main/faq.json';
+    } else {
+      url = 'faq.json';
+    }
+
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) {
+      throw new Error('Could not load FAQ.');
+    }
+    const items = await res.json();
+
+    if (!Array.isArray(items) || items.length === 0) {
+      container.innerHTML = '<p class="no-results">No questions added yet.</p>';
+      return;
+    }
+
+    container.innerHTML = '';
+    items.forEach((item, idx) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'faq-item';
+      wrapper.innerHTML = `
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-${idx}">
+          <span>${item.question || 'Untitled question'}</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div id="faq-${idx}" class="faq-answer" hidden>
+          ${item.answer || ''}
+        </div>
+      `;
+      container.appendChild(wrapper);
+    });
+
+    container.addEventListener('click', (e) => {
+      const btn = e.target.closest('.faq-question');
+      if (!btn) return;
+      const panelId = btn.getAttribute('aria-controls');
+      const panel = document.getElementById(panelId);
+      if (!panel) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      panel.hidden = expanded;
+      const arrow = btn.querySelector('.faq-arrow');
+      if (arrow) arrow.textContent = expanded ? '+' : '–';
+    }, { once: true });
+  } catch (err) {
+    console.error('Failed to load FAQ:', err);
+    container.innerHTML = '<p class="no-results" style="color: var(--error);">Sorry, we could not load the FAQ right now.</p>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadFaq);
+</script>
+
+</body>
+</html>
+
