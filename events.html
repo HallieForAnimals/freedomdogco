@@ -1,46 +1,126 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Events | Rescue Haven</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rescue Haven</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
+  <header>
+    
   <nav>
-    <a href="index.html" class="logo">RESCUE HAVEN</a>
-    <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a href="#" class="logo">
+      <img src="images/logo.png" alt="RESCUE HAVEN" style="height:40px; object-fit:contain; vertical-align:middle; margin-right:0.6rem;"><span class="logo-text">RESCUE HAVEN</span>
+    </a>
+    <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="adoptable-dogs.html">Adoptable Dogs</a>
-      <a href="how-to-help.html">How to Help</a>
-      <a href="events.html" class="active">Events</a>
-      <a href="donate.html">Donate</a>
-      <a href="contact.html">Contact</a>
+      
+          <a href="index.html" >
+            Home
+          </a>
+        
+          <a href="about.html" >
+            About Us
+          </a>
+        
+          <a href="adoptable-dogs.html" >
+            Adoptable Dogs
+          </a>
+        
+          <a href="success-stories.html" >
+            Success Stories
+          </a>
+        
+          <a href="how-to-help.html" >
+            How To Help
+          </a>
+        
+          <a href="donate.html" >
+            Donate
+          </a>
+        
+          <a href="events.html" class="active">
+            Events
+          </a>
+        
+          <a href="faq.html" >
+            FAQ
+          </a>
+        
+          <a href="contact.html" >
+            Contact
+          </a>
+        
     </div>
   </nav>
-</header>
 
-<section class="page-container">
-  <h1 class="page-title">Events</h1>
-  <p class="page-subtitle">
-    Bake sales, adoption days, fundraising drives and more. Join us at an upcoming event.
-  </p>
-  <div class="page-content">
-    <p>This page is managed by the Page Updater. Add and edit events there.</p>
-  </div>
-</section>
+  </header>
 
-<footer>
-  <p>© 2026 Rescue Haven – All Rights Reserved</p>
-</footer>
+  
+      <section class="page-container">
+        <h1 class="page-title">Events</h1>
+        <p class="page-subtitle">Bake sales, adoption days, fundraising drives and more. Join us at an upcoming event.</p>
+        <div class="page-content"><p>Add and edit events below. Dates are optional – use them for one-off events or leave blank for ongoing activities.</p></div>
+        
+        
+        
+        
+        <div class="events-section" style="margin-top:2rem;"><div class="events-list"><div class="event-card">
+        <div class="event-date">Apr 15, 2026</div>
+        <div class="event-type">Adoption event</div>
+        <h3 class="event-title">Sample adoption day</h3>
+        <p class="event-description">Meet our dogs and chat to the team. No obligation to adopt – just come and say hello!</p>
+      </div><div class="event-card">
+        <div class="event-date">May 1, 2026 – May 2, 2026</div>
+        <div class="event-type">Fundraising</div>
+        <h3 class="event-title">Spring bake sale</h3>
+        <p class="event-description">Homemade cakes and treats. All proceeds go to the rescue.</p>
+      </div></div></div>
+      </section>
+    
 
-<script>
-(function(){var btn=document.querySelector('.burger-btn');var links=document.querySelector('.nav-links');if(btn&&links){btn.addEventListener('click',function(){var open=links.classList.toggle('nav-open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');});links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');});});}})();
-</script>
+  
+  <footer class="footer-centered">
+    
+
+    <p>&copy; 2026 Rescue Haven - All Rights Reserved</p>
+    <p class="footer-tagline">Saving one dog won&#039;t change the world, but it will change the world for that one dog.</p>
+    
+    <div class="footer-links">
+      <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
+    </div>
+
+    
+      <div class="footer-social">
+        <a href="https://tiktok.com/@rescuehaven" target="_blank" rel="noopener" class="footer-social-a" title="tiktok"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a><a href="https://instagram.com/rescuehaven" target="_blank" rel="noopener" class="footer-social-a" title="instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      </div>
+    
+  </footer>
+
+
+  <script>
+  (function() {
+    var btn = document.querySelector('.burger-btn');
+    var links = document.querySelector('.nav-links');
+    if (btn && links) {
+      btn.addEventListener('click', function() {
+        var open = links.classList.toggle('nav-open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+          links.classList.remove('nav-open');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Open menu');
+        });
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
