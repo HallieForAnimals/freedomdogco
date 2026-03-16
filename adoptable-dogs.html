@@ -172,13 +172,17 @@
         cardInner.appendChild(ribbon);
       }
 
-      const info = document.createElement('div');
-      info.className = 'dog-info';
-      info.innerHTML = 
-        '<h3>' + (dog.name || '') + '</h3>' +
-        '<p class="dog-meta">' + (dog.age || '') + ' • ' + (dog.size || '') + ' • ' + (dog.gender || '') + '</p>' +
-        '<p class="dog-short-bio">' + (dog.shortBio || '') + '</p>';
-      cardInner.appendChild(info);
+    const info = document.createElement('div');
+    info.className = 'dog-info';
+    info.innerHTML = 
+      '<h3>' + (dog.name || '') + '</h3>' +
+      '<div class="badges">' +
+        (dog.age ? '<span class="badge age">' + dog.age + '</span>' : '') +
+        (dog.size ? '<span class="badge size">' + dog.size + '</span>' : '') +
+        (dog.gender ? '<span class="badge gender ' + dog.gender.toLowerCase() + '">' + dog.gender + '</span>' : '') +
+      '</div>' +
+      '<p class="dog-short-bio">' + (dog.shortBio || '') + '</p>';
+    cardInner.appendChild(info);
 
       card.appendChild(cardInner);
       grid.appendChild(card);
@@ -238,11 +242,11 @@
       </section>
     
 
-    <p>Â© 2026 Rescue Haven - All Rights Reserved</p>
+    <p>&copy; 2026 Rescue Haven - All Rights Reserved</p>
     
     
       <div class="footer-links">
-        <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a>
+        <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a> | <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
       </div>
     
 
