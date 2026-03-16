@@ -22,8 +22,18 @@
       "active": true
     },
     {
+      "text": "How To Help",
+      "url": "how-to-help.html",
+      "active": true
+    },
+    {
       "text": "Donate",
       "url": "donate.html",
+      "active": true
+    },
+    {
+      "text": "Events",
+      "url": "events.html",
       "active": true
     },
     {
