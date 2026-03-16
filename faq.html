@@ -1,109 +1,157 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FAQ | Rescue Haven</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rescue Haven</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
+  <header>
+    
   <nav>
-    <a href="index.html" class="logo">RESCUE HAVEN</a>
-    <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a href="#" class="logo">
+      <img src="images/logo.png" alt="RESCUE HAVEN" style="height:40px; object-fit:contain; vertical-align:middle; margin-right:0.6rem;"><span class="logo-text">RESCUE HAVEN</span>
+    </a>
+    <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="adoptable-dogs.html">Adoptable Dogs</a>
-      <a href="success-stories.html">Success Stories</a>
-      <a href="donate.html">Donate</a>
-      <a href="faq.html" class="active">FAQ</a>
-      <a href="contact.html">Contact</a>
+      
+          <a href="index.html" >
+            Home
+          </a>
+        
+          <a href="about.html" >
+            About Us
+          </a>
+        
+          <a href="adoptable-dogs.html" >
+            Adoptable Dogs
+          </a>
+        
+          <a href="success-stories.html" >
+            Success Stories
+          </a>
+        
+          <a href="how-to-help.html" >
+            How To Help
+          </a>
+        
+          <a href="donate.html" >
+            Donate
+          </a>
+        
+          <a href="events.html" >
+            Events
+          </a>
+        
+          <a href="faq.html" class="active">
+            FAQ
+          </a>
+        
+          <a href="contact.html" >
+            Contact
+          </a>
+        
     </div>
   </nav>
-</header>
 
-<section class="page-container">
-  <h1 class="page-title">Frequently Asked Questions</h1>
-  <p class="page-subtitle">
-    Answers to the questions we hear most often about adoption, fostering, and supporting our work.
-  </p>
+  </header>
 
-  <div id="faq-list" class="faq-list">
-    <!-- Filled by loadFaq() -->
-  </div>
-</section>
-
-<footer>
-  <p>© 2026 Rescue Haven – All Rights Reserved</p>
-</footer>
-
-<script>
-async function loadFaq() {
-  const container = document.getElementById('faq-list');
-  container.innerHTML = '<p class="no-results">Loading questions…</p>';
-
-  try {
-    let url;
-    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-      url = 'https://raw.githubusercontent.com/ProtectThePack/page-updater-proto/main/faq.json';
-    } else {
-      url = 'faq.json';
-    }
-
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) {
-      throw new Error('Could not load FAQ.');
-    }
-    const items = await res.json();
-
-    if (!Array.isArray(items) || items.length === 0) {
-      container.innerHTML = '<p class="no-results">No questions added yet.</p>';
-      return;
-    }
-
-    container.innerHTML = '';
-    items.forEach((item, idx) => {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'faq-item';
-      wrapper.innerHTML = `
-        <button class="faq-question" aria-expanded="false" aria-controls="faq-${idx}">
-          <span>${item.question || 'Untitled question'}</span>
+  
+      <section class="page-container">
+        <h1 class="page-title">Frequently Asked Questions</h1>
+        <p class="page-subtitle">Answers to the questions we hear most often about adoption, fostering, and supporting our work.</p>
+        <div class="page-content"><p>Edit the questions and answers below. Add or remove items as needed.</p></div>
+        
+        
+        
+        <div id="faq-list" class="faq-list" style="margin-top:2rem;"><div class="faq-item">
+        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-0">
+          <span>What are your adoption hours?</span>
           <span class="faq-arrow">+</span>
         </button>
-        <div id="faq-${idx}" class="faq-answer" hidden>
-          ${item.answer || ''}
+        <div id="faq-0" class="faq-answer" hidden>&lt;p&gt;We are open for adoptions by appointment, typically on evenings and weekends. Once you submit an application, our team will contact you to schedule a meet-and-greet.&lt;/p&gt;</div>
+      </div><div class="faq-item">
+        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-1">
+          <span>What is included in the adoption fee?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div id="faq-1" class="faq-answer" hidden>&lt;p&gt;All adopted dogs are spayed/neutered, microchipped, and up to date on age-appropriate vaccines. The adoption fee helps cover these medical costs and daily care.&lt;/p&gt;</div>
+      </div></div>
+<script>(function(){ var list=document.getElementById('faq-list'); if(!list) return; list.addEventListener('click',function(e){ var btn=e.target.closest('.faq-question'); if(!btn) return; var id=btn.getAttribute('aria-controls'); var panel=document.getElementById(id); if(!panel){ var wrap=btn.closest('.faq-item'); panel=wrap&&wrap.querySelector('.faq-answer'); } if(!panel) return; var open=btn.getAttribute('aria-expanded')==='true'; btn.setAttribute('aria-expanded',!open); panel.hidden=open; var arrow=btn.querySelector('.faq-arrow'); if(arrow) arrow.textContent=open?'+':'–'; }); })();</script>
+        
+      </section>
+    
+  <section class="page-container application-links-section" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray); text-align: center;">
+    <p style="margin-bottom: 1rem; color: var(--text-muted);">Ready to take the next step?</p>
+    <div class="application-links-buttons" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+      <a href="adoption-application.html" class="btn">Apply to adopt</a>
+      <a href="foster-application.html" class="btn secondary-btn">Apply to foster</a>
+    </div>
+  </section>
+
+  
+  <footer class="footer-centered">
+    
+      <section class="stats">
+        <div class="stats-grid">
+          
+            <div class="stat-item">
+              <div class="stat">845</div>
+              <div class="stat-label">Dogs Rescued</div>
+            </div>
+          
+            <div class="stat-item">
+              <div class="stat">829</div>
+              <div class="stat-label">Dogs Adopted</div>
+            </div>
+          
+            <div class="stat-item">
+              <div class="stat">16</div>
+              <div class="stat-label">Dogs in Foster</div>
+            </div>
+          
         </div>
-      `;
-      container.appendChild(wrapper);
-    });
+      </section>
+    
 
-    container.addEventListener('click', (e) => {
-      const btn = e.target.closest('.faq-question');
-      if (!btn) return;
-      const panelId = btn.getAttribute('aria-controls');
-      const panel = document.getElementById(panelId);
-      if (!panel) return;
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!expanded));
-      panel.hidden = expanded;
-      const arrow = btn.querySelector('.faq-arrow');
-      if (arrow) arrow.textContent = expanded ? '+' : '–';
-    });
-  } catch (err) {
-    console.error('Failed to load FAQ:', err);
-    container.innerHTML = '<p class="no-results" style="color: var(--error);">Sorry, we could not load the FAQ right now.</p>';
-  }
-}
+    <p>&copy; 2026 Rescue Haven - All Rights Reserved</p>
+    <p class="footer-tagline">Saving one dog won&#039;t change the world, but it will change the world for that one dog.</p>
+    
+    <div class="footer-links">
+      <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
+    </div>
 
-document.addEventListener('DOMContentLoaded', loadFaq);
-</script>
-<script>
-(function(){var btn=document.querySelector('.burger-btn');var links=document.querySelector('.nav-links');if(btn&&links){btn.addEventListener('click',function(){var open=links.classList.toggle('nav-open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');});links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');});});}})();
-</script>
+    
+      <div class="footer-social">
+        <a href="https://tiktok.com/@rescuehaven" target="_blank" rel="noopener" class="footer-social-a" title="tiktok"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a><a href="https://instagram.com/rescuehaven" target="_blank" rel="noopener" class="footer-social-a" title="instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      </div>
+    
+  </footer>
 
+
+  <script>
+  (function() {
+    var btn = document.querySelector('.burger-btn');
+    var links = document.querySelector('.nav-links');
+    if (btn && links) {
+      btn.addEventListener('click', function() {
+        var open = links.classList.toggle('nav-open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+          links.classList.remove('nav-open');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Open menu');
+        });
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
-
