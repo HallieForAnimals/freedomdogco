@@ -12,6 +12,7 @@
 <header>
   <nav>
     <a href="index.html" class="logo">RESCUE HAVEN</a>
+    <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
@@ -90,7 +91,7 @@ async function loadFaq() {
       panel.hidden = expanded;
       const arrow = btn.querySelector('.faq-arrow');
       if (arrow) arrow.textContent = expanded ? '+' : '–';
-    }, { once: true });
+    });
   } catch (err) {
     console.error('Failed to load FAQ:', err);
     container.innerHTML = '<p class="no-results" style="color: var(--error);">Sorry, we could not load the FAQ right now.</p>';
@@ -98,6 +99,9 @@ async function loadFaq() {
 }
 
 document.addEventListener('DOMContentLoaded', loadFaq);
+</script>
+<script>
+(function(){var btn=document.querySelector('.burger-btn');var links=document.querySelector('.nav-links');if(btn&&links){btn.addEventListener('click',function(){var open=links.classList.toggle('nav-open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');});links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');});});}})();
 </script>
 
 </body>
