@@ -337,6 +337,20 @@ footer.footer-centered {
 
 .card-content {
   padding: 1.5rem;
+  text-align: center;
+}
+
+.card-content .badges {
+  justify-content: center;
+}
+
+.dog-info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.dog-info .badges {
+  justify-content: center;
 }
 
 .card-name {
