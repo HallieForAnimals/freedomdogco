@@ -50,51 +50,171 @@
   </header>
 
   
-        <section class="hero" >
-          <div class="hero-content">
-            <h1>Adoptable Dogs</h1>
-            <p>Find your new best friend! All our dogs are spayed/neutered, vaccinated, and ready for their forever home.</p>
-            <div class="page-content"><p>
+  <div class="page-container">
+    <h1 class="page-title">Adoptable Dogs</h1>
+    <p class="page-subtitle">
+      Find your new best friend! All our dogs are spayed/neutered, vaccinated, and ready for their forever home.
+    </p>
+  
+    <div class="filters">
+      <select id="ageFilter">
+        <option value="">All Ages</option>
+        <option value="puppy">Puppy</option>
+        <option value="young">Young</option>
+        <option value="adult">Adult</option>
+        <option value="senior">Senior</option>
+      </select>
 
+      <select id="sizeFilter">
+        <option value="">All Sizes</option>
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
 
-  </p><p><br></p><p>
-  </p><p><br></p><p>
-  </p><p><br></p><p>
-  </p><p><br></p><p>
-  </p><p><br></p><p>
-  </p><p><br></p><p>
-  </p><p><br></p><p>
+      <select id="genderFilter">
+        <option value="">All Genders</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
 
+      <button onclick="applyFilters()">Apply Filters</button>
+    </div>
 
+    <div class="dogs-grid" id="dogsGrid"></div>
+  </div>
 
-  </p><p><br></p><p>
+  <script>
+  let dogs = [];
 
-  </p><p><br></p><p>
+  async function loadDogs() {
+    try {
+      let url;
+      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+        url = 'https://raw.githubusercontent.com/ProtectThePack/page-updater-proto/main/dogs.json';
+      } else {
+        url = 'dogs.json';
+      }
 
-  </p><p><br></p><p>
-
-  </p><p><br></p><p>
-  </p><p><br></p><p>
-</p><p><br></p><p>
-
-
-</p></div>
-            
-          </div>
-        </section>
+      const response = await fetch(url, { cache: 'no-store' });
       
+      if (!response.ok) {
+        throw new Error('HTTP ' + response.status + ': Could not load dogs.json');
+      }
+
+      dogs = await response.json();
+      renderDogs(dogs);
+    } catch (err) {
+      console.error('Failed to load dogs:', err);
+      document.getElementById('dogsGrid').innerHTML = 
+        '<p class="no-results" style="color: var(--error);">Sorry, could not load adoptable dogs right now.<br>Please try again later or contact us directly. 🐾</p>';
+    }
+  }
+
+  function renderDogs(filtered = dogs) {
+    const grid = document.getElementById('dogsGrid');
+    grid.innerHTML = '';
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<p class="no-results">No pups match your filters right now — check back soon! 🐾</p>';
+      return;
+    }
+
+    filtered.forEach(dog => {
+      const card = document.createElement('a');
+      card.href = "#";
+      card.className = 'dog-card';
+
+      const rawStatus = (dog.status || '').toLowerCase().trim();
+      let statusLabel = '';
+      let statusClass = '';
+      if (rawStatus === 'available') {
+        statusLabel = 'Available';
+        statusClass = 'status-available';
+      } else if (rawStatus === 'adopted') {
+        statusLabel = 'Adopted';
+        statusClass = 'status-adopted';
+      } else if (rawStatus === 'rest' || rawStatus === 'resting' || rawStatus === 'rest period') {
+        statusLabel = 'Resting';
+        statusClass = 'status-rest';
+      } else if (rawStatus === 'urgent') {
+        statusLabel = 'Urgent';
+        statusClass = 'status-urgent';
+      } else if (rawStatus === 'reserved') {
+        statusLabel = 'Reserved';
+        statusClass = 'status-reserved';
+      } else if (rawStatus === 'trial' || rawStatus === 'on trial') {
+        statusLabel = 'On Trial';
+        statusClass = 'status-trial';
+      } else if (rawStatus === 'recovery') {
+        statusLabel = 'Recovery';
+        statusClass = 'status-recovery';
+      } else if (rawStatus === 'special') {
+        statusLabel = 'Special Requirements';
+        statusClass = 'status-special';
+      } else if (dog.status) {
+        statusLabel = dog.status;
+        statusClass = 'status-other';
+      }
+
+      const cardInner = document.createElement('div');
+      cardInner.className = 'dog-card-inner';
+
+      const img = document.createElement('img');
+      img.src = getDogPhotoUrl(dog.photo);
+      img.alt = dog.name || 'Adoptable dog';
+      cardInner.appendChild(img);
+
+      if (statusLabel) {
+        const ribbon = document.createElement('div');
+        ribbon.className = 'status-ribbon ' + statusClass;
+        ribbon.textContent = statusLabel;
+        cardInner.appendChild(ribbon);
+      }
+
+      const info = document.createElement('div');
+      info.className = 'dog-info';
+      info.innerHTML = 
+        '<h3>' + (dog.name || '') + '</h3>' +
+        '<p class="dog-meta">' + (dog.age || '') + ' • ' + (dog.size || '') + ' • ' + (dog.gender || '') + '</p>' +
+        '<p class="dog-short-bio">' + (dog.shortBio || '') + '</p>';
+      cardInner.appendChild(info);
+
+      card.appendChild(cardInner);
+      grid.appendChild(card);
+    });
+  }
+
+  function applyFilters() {
+    const age = document.getElementById('ageFilter').value;
+    const size = document.getElementById('sizeFilter').value;
+    const gender = document.getElementById('genderFilter').value;
+
+    const filtered = dogs.filter(dog => {
+      return (!age || dog.age === age) &&
+             (!size || dog.size === size) &&
+             (!gender || dog.gender === gender);
+    });
+
+    renderDogs(filtered);
+  }
+
+  function getDogPhotoUrl(photoPath) {
+    if (!photoPath) {
+      return 'https://via.placeholder.com/400x300?text=No+Photo';
+    }
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      return 'https://raw.githubusercontent.com/ProtectThePack/page-updater-proto/main/' + photoPath;
+    }
+    return photoPath;
+  }
+
+  document.addEventListener('DOMContentLoaded', loadDogs);
+  </script>
+  
 
   
   <footer>
-    <p>© 2026 Rescue Haven - All Rights Reserved</p>
-    
-    
-      <div class="footer-links">
-        <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a>
-      </div>
-    
-
-    <!-- NEW: Conditional stats section based on selected pages -->
     
       <section class="stats">
         <div class="stats-grid">
@@ -118,7 +238,19 @@
       </section>
     
 
-    <!-- social icons etc. -->
+    <p>Â© 2026 Rescue Haven - All Rights Reserved</p>
+    
+    
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a>
+      </div>
+    
+
+    
+      <div class="footer-social">
+        <a href="https://tiktok.com/@rescuehaven" target="_blank" rel="noopener">tiktok</a> <a href="https://instagram.com/rescuehaven" target="_blank" rel="noopener">instagram</a>
+      </div>
+    
   </footer>
 
 
