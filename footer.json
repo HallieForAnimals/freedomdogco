@@ -44,8 +44,11 @@
     "index.html",
     "success-stories.html",
     "privacy.html",
-    "terms.html"
+    "terms.html",
+    "adoption-application.html",
+    "foster-application.html"
   ],
   "showEin": false,
-  "einNumber": ""
+  "einNumber": "",
+  "tagline": "Saving one dog won't change the world, but it will change the world for that one dog."
 }
