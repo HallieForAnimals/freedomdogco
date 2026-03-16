@@ -177,9 +177,9 @@
     info.innerHTML = 
       '<h3>' + (dog.name || '') + '</h3>' +
       '<div class="badges">' +
-        (dog.age ? '<span class="badge age">' + dog.age + '</span>' : '') +
-        (dog.size ? '<span class="badge size">' + dog.size + '</span>' : '') +
-        (dog.gender ? '<span class="badge gender ' + dog.gender.toLowerCase() + '">' + dog.gender + '</span>' : '') +
+        (dog.age ? '<span class="badge age">' + (dog.age.charAt(0).toUpperCase() + dog.age.slice(1).toLowerCase()) + '</span>' : '') +
+        (dog.size ? '<span class="badge size">' + (dog.size.charAt(0).toUpperCase() + dog.size.slice(1).toLowerCase()) + '</span>' : '') +
+        (dog.gender ? '<span class="badge gender ' + dog.gender.toLowerCase() + '">' + (dog.gender.charAt(0).toUpperCase() + dog.gender.slice(1).toLowerCase()) + '</span>' : '') +
       '</div>' +
       '<p class="dog-short-bio">' + (dog.shortBio || '') + '</p>';
     cardInner.appendChild(info);
@@ -200,25 +200,25 @@
     if (dog.age) {
       var a = document.createElement('span');
       a.className = 'badge age';
-      a.textContent = dog.age;
+      a.textContent = dog.age.charAt(0).toUpperCase() + dog.age.slice(1).toLowerCase();
       badgesContainer.appendChild(a);
     }
     if (dog.size) {
       var s = document.createElement('span');
       s.className = 'badge size';
-      s.textContent = dog.size;
+      s.textContent = dog.size.charAt(0).toUpperCase() + dog.size.slice(1).toLowerCase();
       badgesContainer.appendChild(s);
     }
     if (dog.gender) {
       var g = document.createElement('span');
       g.className = 'badge gender ' + (dog.gender || '').toLowerCase();
-      g.textContent = dog.gender;
+      g.textContent = (dog.gender || '').charAt(0).toUpperCase() + (dog.gender || '').slice(1).toLowerCase();
       badgesContainer.appendChild(g);
     }
     if (dog.status) {
       var st = document.createElement('span');
       st.className = 'badge urgent';
-      st.textContent = dog.status;
+      st.textContent = (dog.status || '').charAt(0).toUpperCase() + (dog.status || '').slice(1).toLowerCase();
       badgesContainer.appendChild(st);
     }
     document.getElementById('modalPhoto').src = getDogPhotoUrl(dog.photo, true);
@@ -328,7 +328,7 @@
       </section>
     
 
-    <p>&copy; ÃÂ© 2026 Rescue Haven - All Rights Reserved</p>
+    <p>&copy; 2026 Rescue Haven - All Rights Reserved</p>
     
     <div class="footer-links">
       <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
