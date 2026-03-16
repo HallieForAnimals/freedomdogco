@@ -13,6 +13,7 @@
   <header>
     <nav>
       <a href="index.html" class="logo">Rescue Haven</a>
+      <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="about.html">About Us</a>
@@ -65,6 +66,9 @@
   <footer>
     <p>© 2026 Rescue Haven – All Rights Reserved</p>
   </footer>
+  <script>
+  (function(){var btn=document.querySelector('.burger-btn');var links=document.querySelector('.nav-links');if(btn&&links){btn.addEventListener('click',function(){var open=links.classList.toggle('nav-open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');});links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');});});}})();
+  </script>
 </body>
 </html>
 
