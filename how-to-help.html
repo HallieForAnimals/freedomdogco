@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How to Help | Rescue Haven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">RESCUE HAVEN</a>
+    <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="adoptable-dogs.html">Adoptable Dogs</a>
+      <a href="how-to-help.html" class="active">How to Help</a>
+      <a href="events.html">Events</a>
+      <a href="donate.html">Donate</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<section class="page-container">
+  <h1 class="page-title">How to Help</h1>
+  <p class="page-subtitle">
+    Rescues always need help – and not necessarily financial. Time, supplies, and fundraising all make a difference.
+  </p>
+  <div class="page-content">
+    <p>This page is managed by the Page Updater. Edit the intro and the Q&amp;A list there.</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Rescue Haven – All Rights Reserved</p>
+</footer>
+
+<script>
+(function(){var btn=document.querySelector('.burger-btn');var links=document.querySelector('.nav-links');if(btn&&links){btn.addEventListener('click',function(){var open=links.classList.toggle('nav-open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');});links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');});});}})();
+</script>
+</body>
+</html>
