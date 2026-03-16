@@ -1,11 +1,33 @@
 {
   "logoText": "RESCUE HAVEN",
   "navLinks": [
-    { "text": "Home", "url": "index.html", "active": false },
-    { "text": "About Us", "url": "about.html", "active": false },
-    { "text": "Adoptable Dogs", "url": "adoptable-dogs.html", "active": false },
-    { "text": "Donate", "url": "donate.html", "active": false },
-    { "text": "Contact", "url": "contact.html", "active": false }
+    {
+      "text": "Home",
+      "url": "index.html",
+      "active": true
+    },
+    {
+      "text": "About Us",
+      "url": "about.html",
+      "active": true
+    },
+    {
+      "text": "Adoptable Dogs",
+      "url": "adoptable-dogs.html",
+      "active": true
+    },
+    {
+      "text": "Donate",
+      "url": "donate.html",
+      "active": true
+    },
+    {
+      "text": "Contact",
+      "url": "contact.html",
+      "active": true
+    }
   ],
-  "extraClasses": ""
+  "extraClasses": "",
+  "logoMode": "both",
+  "logoImage": "images/logo.png"
 }
