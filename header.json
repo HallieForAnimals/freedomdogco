@@ -25,6 +25,16 @@
       "text": "Contact",
       "url": "contact.html",
       "active": true
+    },
+    {
+      "text": "Success Stories",
+      "url": "success-stories.html",
+      "active": true
+    },
+    {
+      "text": "FAQ",
+      "url": "faq.html",
+      "active": true
     }
   ],
   "extraClasses": "",
