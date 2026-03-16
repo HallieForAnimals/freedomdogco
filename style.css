@@ -47,8 +47,14 @@ nav {
   text-decoration: none;
   letter-spacing: 0.05em;
   display: inline-flex;
-  align-items: center;
+  align-items: stretch;
   gap: 0.6rem;
+}
+
+.logo .logo-img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
 }
 
 .logo .logo-text {
@@ -73,6 +79,7 @@ nav {
   font-weight: 500;
   font-size: 1.1rem;
   transition: color 0.3s;
+  text-align: center;
 }
 
 .nav-links a:hover {
@@ -471,6 +478,25 @@ footer.footer-centered {
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+}
+
+.dog-card-actions {
+  margin: 1rem 0 0;
+}
+
+.dog-card-more-btn {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: var(--gold);
+  color: var(--black);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.dog-card:hover .dog-card-more-btn {
+  background: var(--gold-dark);
 }
 
 .badges {
