@@ -562,6 +562,55 @@ footer.footer-centered {
   margin: 0 auto;
 }
 
+.help-faq-list {
+  margin-top: 0.5rem;
+}
+
+/* Events page */
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.event-card {
+  background: var(--gray-dark);
+  border: 1px solid var(--gray);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.event-date {
+  font-size: 0.9rem;
+  color: var(--gold);
+  margin-bottom: 0.35rem;
+}
+
+.event-type {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.event-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: var(--text-light);
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.event-description {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
 .faq-item + .faq-item {
   margin-top: 1rem;
 }
