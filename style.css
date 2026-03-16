@@ -445,6 +445,20 @@ footer.footer-centered {
   padding: 1rem 0;
 }
 
+.application-links-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--gray);
+  text-align: center;
+}
+
+.application-links-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
 .faq-list {
   max-width: 900px;
   margin: 0 auto;
