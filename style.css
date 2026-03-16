@@ -262,6 +262,13 @@ footer.footer-centered {
   text-align: center;
 }
 
+.footer-tagline {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
 /* ──────────────────────────────────────────────── */
 /* Adoptable Dogs Page Styles – added below         */
 
