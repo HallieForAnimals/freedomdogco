@@ -1,120 +1,45 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rescue Haven</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us | Rescue Haven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    
+
+<header>
   <nav>
-    <a href="#" class="logo">
-      <img src="images/logo.png" alt="RESCUE HAVEN" style="height:40px; object-fit:contain; vertical-align:middle; margin-right:0.6rem;"><span class="logo-text">RESCUE HAVEN</span>
-    </a>
+    <a href="index.html" class="logo">RESCUE HAVEN</a>
+    <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links">
-      
-          <a href="index.html" >
-            Home
-          </a>
-        
-          <a href="about.html" class="active">
-            About Us
-          </a>
-        
-          <a href="adoptable-dogs.html" >
-            Adoptable Dogs
-          </a>
-        
-          <a href="success-stories.html" >
-            Success Stories
-          </a>
-        
-          <a href="donate.html" >
-            Donate
-          </a>
-        
-          <a href="faq.html" >
-            FAQ
-          </a>
-        
-          <a href="contact.html" >
-            Contact
-          </a>
-        
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About Us</a>
+      <a href="adoptable-dogs.html">Adoptable Dogs</a>
+      <a href="donate.html">Donate</a>
+      <a href="contact.html">Contact</a>
     </div>
   </nav>
+</header>
 
-  </header>
+<section class="page-container">
+  <h1 class="page-title">About Us</h1>
+  <p class="page-subtitle">
+    Learn more about our mission, our team, and how we save lives every day.
+  </p>
+  <div class="page-content">
+    <p>This page is managed by the Page Updater app. You can edit its sections there and re-save to GitHub.</p>
+  </div>
+</section>
 
-  
-      <section class="page-container">
-        
-        
-        <div class="page-content"><p>
+<footer>
+  <p>© 2026 Rescue Haven – All Rights Reserved</p>
+</footer>
 
-
-  </p><p><br></p><p>
-  </p><p><br></p><p>
-  </p><p><br></p><p>
-  </p><p><br></p><p>
-  </p><p><br></p><p>
-
-
-
-</p><p><br></p><p>
-
-</p><p><br></p><p>
-
-</p><p><br></p><p>
-
-
-
-
-</p></div>
-        
-      </section>
-    
-
-  
-  <footer>
-    <p>© 2026 Rescue Haven – All Rights Reserved</p>
-    
-    
-      <div class="footer-links">
-        <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a>
-      </div>
-    
-
-    <!-- NEW: Conditional stats section based on selected pages -->
-    
-      <section class="stats">
-        <div class="stats-grid">
-          
-            <div class="stat-item">
-              <div class="stat">845</div>
-              <div class="stat-label">Dogs Rescued</div>
-            </div>
-          
-            <div class="stat-item">
-              <div class="stat">829</div>
-              <div class="stat-label">Dogs Adopted</div>
-            </div>
-          
-            <div class="stat-item">
-              <div class="stat">16</div>
-              <div class="stat-label">Dogs in Foster</div>
-            </div>
-          
-        </div>
-      </section>
-    
-
-    <!-- social icons etc. -->
-  </footer>
-
-
+<script>
+(function(){var btn=document.querySelector('.burger-btn');var links=document.querySelector('.nav-links');if(btn&&links){btn.addEventListener('click',function(){var open=links.classList.toggle('nav-open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');});links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');});});}})();
+</script>
 </body>
 </html>
+
