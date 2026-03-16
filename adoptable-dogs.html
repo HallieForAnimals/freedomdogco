@@ -197,19 +197,29 @@
     document.getElementById('modalName').textContent = dog.name || '';
     var badgesContainer = document.getElementById('modalBadges');
     badgesContainer.innerHTML = '';
-    ['age', 'size', 'gender'].forEach(function(key) {
-      if (dog[key]) {
-        var span = document.createElement('span');
-        span.className = 'badge ' + (key === 'gender' ? dog.gender : key);
-        span.textContent = dog[key].charAt(0).toUpperCase() + dog[key].slice(1);
-        badgesContainer.appendChild(span);
-      }
-    });
+    if (dog.age) {
+      var a = document.createElement('span');
+      a.className = 'badge age';
+      a.textContent = dog.age;
+      badgesContainer.appendChild(a);
+    }
+    if (dog.size) {
+      var s = document.createElement('span');
+      s.className = 'badge size';
+      s.textContent = dog.size;
+      badgesContainer.appendChild(s);
+    }
+    if (dog.gender) {
+      var g = document.createElement('span');
+      g.className = 'badge gender ' + (dog.gender || '').toLowerCase();
+      g.textContent = dog.gender;
+      badgesContainer.appendChild(g);
+    }
     if (dog.status) {
-      var urgent = document.createElement('span');
-      urgent.className = 'badge urgent';
-      urgent.textContent = dog.status;
-      badgesContainer.appendChild(urgent);
+      var st = document.createElement('span');
+      st.className = 'badge urgent';
+      st.textContent = dog.status;
+      badgesContainer.appendChild(st);
     }
     document.getElementById('modalPhoto').src = getDogPhotoUrl(dog.photo, true);
     document.getElementById('modalPhoto').alt = (dog.name || '') + ' - ' + (dog.breed || 'adoptable dog');
@@ -318,10 +328,10 @@
       </section>
     
 
-    <p>&copy; 2026 Rescue Haven - All Rights Reserved</p>
+    <p>&copy; ÃÂ© 2026 Rescue Haven - All Rights Reserved</p>
     
     <div class="footer-links">
-      <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a> | <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
     </div>
 
     
