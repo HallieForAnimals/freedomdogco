@@ -393,6 +393,8 @@ footer.footer-centered {
 .contact-form-wrapper {
   margin-top: 2rem;
   max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .contact-form {
