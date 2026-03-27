@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Cujo",
+    "photo": "images/dog-1773458775986.jpg",
+    "age": "puppy",
+    "size": "large",
+    "gender": "male",
+    "breed": "Golden Retriever",
+    "shortBio": "Text",
+    "fullBio": "Text"
+  }
+]

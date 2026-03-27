@@ -1,0 +1,53 @@
+{
+  "logoText": "RESCUE HAVEN",
+  "navLinks": [
+    {
+      "text": "Home",
+      "url": "index.html",
+      "active": true
+    },
+    {
+      "text": "About Us",
+      "url": "about.html",
+      "active": true
+    },
+    {
+      "text": "Adoptable Dogs",
+      "url": "adoptable-dogs.html",
+      "active": true
+    },
+    {
+      "text": "Success Stories",
+      "url": "success-stories.html",
+      "active": true
+    },
+    {
+      "text": "How To Help",
+      "url": "how-to-help.html",
+      "active": true
+    },
+    {
+      "text": "Donate",
+      "url": "donate.html",
+      "active": true
+    },
+    {
+      "text": "Events",
+      "url": "events.html",
+      "active": true
+    },
+    {
+      "text": "FAQ",
+      "url": "faq.html",
+      "active": true
+    },
+    {
+      "text": "Contact",
+      "url": "contact.html",
+      "active": true
+    }
+  ],
+  "extraClasses": "",
+  "logoMode": "both",
+  "logoImage": "images/logo.png"
+}
