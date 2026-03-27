@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adoption Application | Rescue Haven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="announcement-root"></div>
+<div class="ad-slot ad-slot-banner" data-ad-slot="banner_below_header"></div>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">RESCUE HAVEN</a>
+    <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="adoptable-dogs.html">Adoptable Dogs</a>
+      <a href="success-stories.html">Success Stories</a>
+      <a href="how-to-help.html">How to Help</a>
+      <a href="events.html">Events</a>
+      <a href="donate.html">Donate</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<section class="page-container">
+  <h1 class="page-title">Adoption Application</h1>
+  <p class="page-subtitle">
+    Ready to welcome a new family member? Fill out the form below to start the adoption process.
+  </p>
+  <div class="page-content">
+    <p>If you arrived here from a dog’s profile, their name should appear under “Dog(s) interested in.” You can change it if you’re interested in more than one dog.</p>
+  </div>
+  <div class="contact-form-wrapper">
+    <form class="contact-form" action="#" method="post" id="adoption-application-form" data-form-kind="adoption">
+      <label for="cf-name">Full name</label>
+      <input type="text" id="cf-name" name="name" placeholder="Your full name" required>
+      <label for="cf-email">Email</label>
+      <input type="email" id="cf-email" name="email" placeholder="Your email" required>
+      <label for="cf-phone">Phone</label>
+      <input type="tel" id="cf-phone" name="phone" placeholder="Best number to reach you">
+      <label for="cf-dog">Dog(s) interested in</label>
+      <input type="text" id="cf-dog" name="dog" placeholder='Name or "open to meeting a few"'>
+      <label for="cf-experience">Experience &amp; message</label>
+      <textarea id="cf-experience" name="experience" placeholder="Tell us about your home, experience with dogs, and why you want to adopt." required rows="4"></textarea>
+      <button type="submit" class="btn">Submit adoption application</button>
+    </form>
+    <p id="adoption-application-form-success" class="contact-form-success" style="display:none;">Thank you! We've received your application and will be in touch soon.</p>
+  </div>
+  <script src="site-runtime.js"></script>
+</section>
+
+<footer>
+  <p>© 2026 Rescue Haven – All Rights Reserved</p>
+  <div class="footer-links">
+    <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+<div class="ad-slot ad-slot-banner" data-ad-slot="banner_above_footer"></div>
+<script>
+(function(){var btn=document.querySelector('.burger-btn');var links=document.querySelector('.nav-links');if(btn&&links){btn.addEventListener('click',function(){var open=links.classList.toggle('nav-open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');});links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');});});}})();
+</script>
+</body>
+</html>

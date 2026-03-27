@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adoptable Dogs | Your Shelter Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="announcement-root"></div>
+  <div class="ad-slot ad-slot-banner" data-ad-slot="banner_below_header"></div>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Rescue Haven</a>
+      <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="adoptable-dogs.html" class="active">Adoptable Dogs</a>
+        <a href="success-stories.html">Success Stories</a>
+        <a href="how-to-help.html">How to Help</a>
+        <a href="events.html">Events</a>
+        <a href="donate.html">Donate</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <h1 class="page-title">Adoptable Dogs</h1>
+    <p class="page-subtitle">
+      Find your new best friend! All our dogs are spayed/neutered, vaccinated, and ready for their forever home.
+    </p>
+  
+    <div class="filters">
+      <select id="ageFilter">
+        <option value="">All Ages</option>
+        <option value="puppy">Puppy</option>
+        <option value="young">Young</option>
+        <option value="adult">Adult</option>
+        <option value="senior">Senior</option>
+      </select>
+
+      <select id="sizeFilter">
+        <option value="">All Sizes</option>
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
+
+      <select id="genderFilter">
+        <option value="">All Genders</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+
+      <button onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div class="dogs-grid" id="dogsGrid"></div>
+  </div>
+
+  <script src="site-runtime.js"></script>
+  <script>
+  let dogs = [];
+
+  async function loadDogs() {
+    try {
+      const url = window.hfaDataJsonUrl ? window.hfaDataJsonUrl('dogs.json') : 'dogs.json';
+
+      const response = await fetch(url, { cache: 'no-store' });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: Could not load dogs.json`);
+      }
+
+      dogs = await response.json();
+
+      // Optional: sort or filter here if needed
+      renderDogs(dogs);
+    } catch (err) {
+      console.error('Failed to load dogs:', err);
+      document.getElementById('dogsGrid').innerHTML = `
+        <p class="no-results" style="color: var(--error);">
+          Sorry, could not load adoptable dogs right now.<br>
+          Please try again later or contact us directly. 🐾
+        </p>
+      `;
+    }
+  }
+
+  function renderDogs(filtered = dogs) {
+    const grid = document.getElementById('dogsGrid');
+    grid.innerHTML = '';
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<p class="no-results">No pups match your filters right now — check back soon! 🐾</p>';
+      return;
+    }
+
+    filtered.forEach(dog => {
+      const card = document.createElement('div');
+      card.className = 'dog-card';
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-label', 'View details for ' + (dog.name || 'dog'));
+
+      const rawStatus = (dog.status || '').toLowerCase().trim();
+      let statusLabel = '';
+      let statusClass = '';
+      if (rawStatus === 'available') {
+        statusLabel = 'Available';
+        statusClass = 'status-available';
+      } else if (rawStatus === 'adopted') {
+        statusLabel = 'Adopted';
+        statusClass = 'status-adopted';
+      } else if (rawStatus === 'rest' || rawStatus === 'resting' || rawStatus === 'rest period') {
+        statusLabel = 'Resting';
+        statusClass = 'status-rest';
+      } else if (rawStatus === 'urgent') {
+        statusLabel = 'Urgent';
+        statusClass = 'status-urgent';
+      } else if (rawStatus === 'reserved') {
+        statusLabel = 'Reserved';
+        statusClass = 'status-reserved';
+      } else if (rawStatus === 'trial' || rawStatus === 'on trial') {
+        statusLabel = 'On Trial';
+        statusClass = 'status-trial';
+      } else if (rawStatus === 'recovery') {
+        statusLabel = 'Recovery';
+        statusClass = 'status-recovery';
+      } else if (rawStatus === 'special') {
+        statusLabel = 'Special Requirements';
+        statusClass = 'status-special';
+      } else if (dog.status) {
+        statusLabel = dog.status;
+        statusClass = 'status-other';
+      }
+
+      let badgesHTML = `
+        <span class="badge age">${dog.age.charAt(0).toUpperCase() + dog.age.slice(1)}</span>
+        <span class="badge size">${dog.size.charAt(0).toUpperCase() + dog.size.slice(1)}</span>
+        <span class="badge gender ${dog.gender}">${dog.gender.charAt(0).toUpperCase() + dog.gender.slice(1)}</span>
+      `;
+      if (dog.urgent) badgesHTML += `<span class="badge urgent">${dog.urgent}</span>`;
+
+      const photoUrl = getDogPhotoUrl(dog);
+
+      card.innerHTML = `
+        ${statusLabel ? `<span class="status-ribbon ${statusClass}">${statusLabel}</span>` : ''}
+        <img src="${photoUrl}" alt="${dog.name}">
+        <div class="card-content">
+          <h2 class="card-name">${dog.name}</h2>
+          <div class="badges">${badgesHTML}</div>
+          <p class="bio">${dog.shortBio || dog.bio || 'No bio available'}</p>
+          <span class="btn-meet">View details →</span>
+        </div>
+      `;
+
+      function activateCard() {
+        try {
+          if (typeof window.hfaTrackDogClick === 'function') window.hfaTrackDogClick(dog);
+        } catch (_) {}
+        openModal(dog);
+      }
+      card.addEventListener('click', () => activateCard());
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activateCard();
+        }
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  function applyFilters() {
+    const age    = document.getElementById('ageFilter').value;
+    const size   = document.getElementById('sizeFilter').value;
+    const gender = document.getElementById('genderFilter').value;
+
+    const filtered = dogs.filter(d => 
+      (!age    || d.age    === age) &&
+      (!size   || d.size   === size) &&
+      (!gender || d.gender === gender)
+    );
+
+    renderDogs(filtered);
+  }
+
+  function getDogPhotoUrl(dog, large = false) {
+    const placeholder = large
+      ? 'https://via.placeholder.com/600x400?text=No+Photo'
+      : 'https://via.placeholder.com/300x300?text=No+Photo';
+
+    const path = (dog.photo || '').trim();
+    if (!path) return placeholder;
+
+    if (window.hfaDataJsonUrl && /^(localhost|127\.0\.0\.1)$/i.test(location.hostname)) {
+      const base = window.hfaDataJsonUrl('').replace(/\/+$/, '');
+      return `${base}/${path}`;
+    }
+
+    // Deployed: expect images to be served with the site
+    return path;
+  }
+
+  // Modal functions (unchanged from your original, but using fetched dog data)
+  function openModal(dog) {
+    document.getElementById('modalName').textContent = dog.name;
+    
+    const badgesContainer = document.getElementById('modalBadges');
+    badgesContainer.innerHTML = '';
+    ['age', 'size', 'gender'].forEach(key => {
+      const span = document.createElement('span');
+      span.className = `badge ${key === 'gender' ? dog.gender : key}`;
+      span.textContent = dog[key].charAt(0).toUpperCase() + dog[key].slice(1);
+      badgesContainer.appendChild(span);
+    });
+    if (dog.status) {
+      const urgent = document.createElement('span');
+      urgent.className = 'badge urgent';
+      urgent.textContent = dog.status;
+      badgesContainer.appendChild(urgent);
+    }
+
+    document.getElementById('modalPhoto').src = getDogPhotoUrl(dog, true);
+    document.getElementById('modalPhoto').alt = `${dog.name} - ${dog.breed || 'adoptable dog'}`;
+    document.getElementById('modalFullBio').textContent = dog.fullBio || dog.bio || 'No detailed bio available.';
+    document.getElementById('modalBreed').textContent = dog.breed || 'N/A';
+    document.getElementById('modalFee').textContent = dog.adoptionFee || 'Contact for details';
+    document.getElementById('modalGoodWith').textContent = dog.goodWith || 'Unknown';
+    document.getElementById('modalMedical').textContent = dog.medical || 'Up to date on vaccines';
+    document.getElementById('modalSpecial').textContent = dog.specialRequirements || 'None';
+
+    document.getElementById('modalApplyLink').href =
+      'adoption-application.html' + (dog.name ? '?dog=' + encodeURIComponent(dog.name) : '');
+
+    const modal = document.getElementById('dogModal');
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+    modal.querySelector('.modal-close').focus();
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('dogModal');
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  // Modal close listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('dogModal');
+    
+    modal.querySelector('.modal-close').addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('show')) {
+        closeModal();
+      }
+    });
+
+    // Load dogs on page open
+    loadDogs();
+  });
+</script>
+
+  <div class="ad-slot ad-slot-banner" data-ad-slot="banner_above_footer"></div>
+  <footer>
+    <p>© 2026 Your Shelter Name. All rights reserved.<br>
+    Helping paws find loving homes every day 🐶</p>
+    <div class="footer-links">
+      <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
+  <!-- Shared Modal Popup -->
+<div id="dogModal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Close modal">&times;</button>
+    
+    <div class="modal-header">
+      <h2 id="modalName" class="card-name"></h2>
+      <div id="modalBadges" class="badges"></div>
+    </div>
+    
+    <img id="modalPhoto" src="" alt="Dog photo" class="modal-photo">
+    
+    <div class="modal-body">
+      <p id="modalFullBio" class="bio full-bio"></p>
+      
+      <div class="details-grid">
+        <div class="details-label">Breed:</div>
+        <div class="details-value" id="modalBreed"></div>
+        
+        <div class="details-label">Adoption Fee:</div>
+        <div class="details-value" id="modalFee"></div>
+        
+        <div class="details-label">Good With:</div>
+        <div class="details-value" id="modalGoodWith"></div>
+        
+        <div class="details-label">Medical / Status:</div>
+        <div class="details-value" id="modalMedical"></div>
+
+        <div class="details-label">Special Requirements:</div>
+        <div class="details-value" id="modalSpecial"></div>
+      </div>
+      
+      <a id="modalApplyLink" href="#" class="btn" style="margin-top: 2rem; display: block; text-align: center; font-size: 1.8rem;">
+        Start Adoption Application
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){var btn=document.querySelector('.burger-btn');var links=document.querySelector('.nav-links');if(btn&&links){btn.addEventListener('click',function(){var open=links.classList.toggle('nav-open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');});links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');});});}})();
+</script>
+</body>
+</html>

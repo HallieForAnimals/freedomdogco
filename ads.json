@@ -1,0 +1,20 @@
+{
+  "enabled": true,
+  "placements": [
+    {
+      "slot": "banner_below_header",
+      "enabled": false,
+      "ads": []
+    },
+    {
+      "slot": "banner_above_footer",
+      "enabled": false,
+      "ads": []
+    },
+    {
+      "slot": "sidebar_right",
+      "enabled": false,
+      "ads": []
+    }
+  ]
+}

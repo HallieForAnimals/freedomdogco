@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy | Rescue Haven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="announcement-root"></div>
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Rescue Haven</a>
+      <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="adoptable-dogs.html">Adoptable Dogs</a>
+        <a href="success-stories.html">Success Stories</a>
+        <a href="how-to-help.html">How to Help</a>
+        <a href="events.html">Events</a>
+        <a href="donate.html">Donate</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <h1 class="page-title">Privacy Policy</h1>
+    <p class="page-subtitle">
+      How Rescue Haven collects, uses, and protects your information.
+    </p>
+
+    <div class="page-content">
+      <p><strong>Quick note:</strong> This is a general template. Please have a legal professional review and tailor it for your organization and local regulations.</p>
+
+      <h2>Information we collect</h2>
+      <p>
+        We collect information you provide directly to us, such as when you submit an adoption application, volunteer form, donation, or contact request.
+        This may include your name, contact details, address, and information about your household and pets.
+      </p>
+
+      <h2>How we use your information</h2>
+      <p>
+        We use your information to process applications, communicate with you about animals and events, issue donation receipts, and improve our services.
+        We do not sell your personal information.
+      </p>
+
+      <h2>Sharing your information</h2>
+      <p>
+        We may share your information with trusted service providers (for example, payment processors or email services) solely to perform services on our behalf,
+        or as required by law.
+      </p>
+
+      <h2>Data security</h2>
+      <p>
+        We take reasonable steps to protect your information, but no method of transmission or storage is 100% secure. Please contact us if you have any concerns about your data.
+      </p>
+
+      <h2>Your choices</h2>
+      <p>
+        You may request to access, update, or delete certain personal information we hold about you, subject to legal or record‑keeping requirements.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Rescue Haven – All Rights Reserved</p>
+    <div class="footer-links">
+      <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
+  <script src="site-runtime.js"></script>
+  <script>
+  (function(){var btn=document.querySelector('.burger-btn');var links=document.querySelector('.nav-links');if(btn&&links){btn.addEventListener('click',function(){var open=links.classList.toggle('nav-open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');});links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');});});}})();
+  </script>
+</body>
+</html>
+
