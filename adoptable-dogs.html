@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Adoptable Dogs | Your Shelter Name</title>
+  <title>Adoptable Dogs | Freedom Dog Co</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 
   <header>
     <nav>
-      <a href="index.html" class="logo">Rescue Haven</a>
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="Freedom Dog Co" class="logo-img"><span class="logo-text" aria-hidden="true"><span class="logo-line">FREEDOM</span><span class="logo-line"><span class="logo-w">DOG</span><span class="logo-w">CO</span></span></span></a>
       <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
       <div class="nav-links">
         <a href="index.html">Home</a>
@@ -69,6 +69,19 @@
   <script>
   let dogs = [];
 
+  function hfaText(s) {
+    var t = String(s ?? '');
+    return window.hfaRepairUtf8Mojibake ? window.hfaRepairUtf8Mojibake(t) : t;
+  }
+
+  /** Prefer `name`; some data sources use dog_name / dogName / Name. */
+  function dogNameForLink(dog) {
+    if (!dog) return '';
+    var n = dog.name;
+    if (n == null || !String(n).trim()) n = dog.dog_name != null ? dog.dog_name : dog.dogName != null ? dog.dogName : dog.Name;
+    return n != null && String(n).trim() ? String(n).trim() : '';
+  }
+
   async function loadDogs() {
     try {
       const url = window.hfaDataJsonUrl ? window.hfaDataJsonUrl('dogs.json') : 'dogs.json';
@@ -99,7 +112,7 @@
     grid.innerHTML = '';
 
     if (filtered.length === 0) {
-      grid.innerHTML = '<p class="no-results">No pups match your filters right now — check back soon! 🐾</p>';
+      grid.innerHTML = '<p class="no-results">No pups match your filters right now &mdash; check back soon! 🐾</p>';
       return;
     }
 
@@ -108,7 +121,7 @@
       card.className = 'dog-card';
       card.setAttribute('role', 'button');
       card.setAttribute('tabindex', '0');
-      card.setAttribute('aria-label', 'View details for ' + (dog.name || 'dog'));
+      card.setAttribute('aria-label', 'View details for ' + (hfaText(dogNameForLink(dog)) || 'dog'));
 
       const rawStatus = (dog.status || '').toLowerCase().trim();
       let statusLabel = '';
@@ -153,11 +166,11 @@
 
       card.innerHTML = `
         ${statusLabel ? `<span class="status-ribbon ${statusClass}">${statusLabel}</span>` : ''}
-        <img src="${photoUrl}" alt="${dog.name}">
+        <img src="${photoUrl}" alt="${hfaText(dogNameForLink(dog))}">
         <div class="card-content">
-          <h2 class="card-name">${dog.name}</h2>
+          <h2 class="card-name">${hfaText(dogNameForLink(dog))}</h2>
           <div class="badges">${badgesHTML}</div>
-          <p class="bio">${dog.shortBio || dog.bio || 'No bio available'}</p>
+          <p class="bio">${hfaText(dog.shortBio || dog.bio || 'No bio available')}</p>
           <span class="btn-meet">View details →</span>
         </div>
       `;
@@ -213,7 +226,7 @@
 
   // Modal functions (unchanged from your original, but using fetched dog data)
   function openModal(dog) {
-    document.getElementById('modalName').textContent = dog.name;
+    document.getElementById('modalName').textContent = hfaText(dogNameForLink(dog) || 'Dog');
     
     const badgesContainer = document.getElementById('modalBadges');
     badgesContainer.innerHTML = '';
@@ -231,16 +244,27 @@
     }
 
     document.getElementById('modalPhoto').src = getDogPhotoUrl(dog, true);
-    document.getElementById('modalPhoto').alt = `${dog.name} - ${dog.breed || 'adoptable dog'}`;
-    document.getElementById('modalFullBio').textContent = dog.fullBio || dog.bio || 'No detailed bio available.';
-    document.getElementById('modalBreed').textContent = dog.breed || 'N/A';
-    document.getElementById('modalFee').textContent = dog.adoptionFee || 'Contact for details';
-    document.getElementById('modalGoodWith').textContent = dog.goodWith || 'Unknown';
-    document.getElementById('modalMedical').textContent = dog.medical || 'Up to date on vaccines';
-    document.getElementById('modalSpecial').textContent = dog.specialRequirements || 'None';
+    document.getElementById('modalPhoto').alt = `${hfaText(dogNameForLink(dog) || 'Dog')} - ${hfaText(dog.breed || 'adoptable dog')}`;
+    document.getElementById('modalFullBio').textContent = hfaText(dog.fullBio || dog.bio || 'No detailed bio available.');
+    document.getElementById('modalBreed').textContent = hfaText(dog.breed || 'N/A');
+    document.getElementById('modalFee').textContent = hfaText(dog.adoptionFee || 'Contact for details');
+    document.getElementById('modalGoodWith').textContent = hfaText(dog.goodWith || 'Unknown');
+    document.getElementById('modalMedical').textContent = hfaText(dog.medical || 'Up to date on vaccines');
+    document.getElementById('modalSpecial').textContent = hfaText(dog.specialRequirements || 'None');
 
-    document.getElementById('modalApplyLink').href =
-      'adoption-application.html' + (dog.name ? '?dog=' + encodeURIComponent(dog.name) : '');
+    var dogName = dogNameForLink(dog);
+    if (dogName && typeof window.hfaStashAdoptionPrefillDog === 'function') {
+      window.hfaStashAdoptionPrefillDog(dogName);
+    }
+    try {
+      var applyUrl = new URL('adoption-application.html', window.location.href);
+      applyUrl.search = '';
+      if (dogName) applyUrl.searchParams.set('dog', dogName);
+      document.getElementById('modalApplyLink').href = applyUrl.href;
+    } catch (e) {
+      document.getElementById('modalApplyLink').href =
+        'adoption-application.html' + (dogName ? '?dog=' + encodeURIComponent(dogName) : '');
+    }
 
     const modal = document.getElementById('dogModal');
     modal.classList.add('show');
@@ -259,6 +283,16 @@
     const modal = document.getElementById('dogModal');
     
     modal.querySelector('.modal-close').addEventListener('click', closeModal);
+
+    document.getElementById('modalApplyLink').addEventListener('click', function () {
+      try {
+        var href = this.getAttribute('href');
+        if (!href || href === '#') return;
+        var u = new URL(href, window.location.href);
+        var d = u.searchParams.get('dog');
+        if (d && typeof window.hfaStashAdoptionPrefillDog === 'function') window.hfaStashAdoptionPrefillDog(d);
+      } catch (e) {}
+    });
     
     modal.addEventListener('click', (e) => {
       if (e.target === modal) closeModal();
@@ -277,7 +311,7 @@
 
   <div class="ad-slot ad-slot-banner" data-ad-slot="banner_above_footer"></div>
   <footer>
-    <p>© 2026 Your Shelter Name. All rights reserved.<br>
+    <p>&copy; 2026 Freedom Dog Co. All rights reserved.<br>
     Helping paws find loving homes every day 🐶</p>
     <div class="footer-links">
       <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FAQ | Rescue Haven</title>
+  <title>FAQ | Freedom Dog Co</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -13,7 +13,7 @@
 
 <header>
   <nav>
-    <a href="index.html" class="logo">RESCUE HAVEN</a>
+    <a href="index.html" class="logo"><img src="images/logo.png" alt="Freedom Dog Co" class="logo-img"><span class="logo-text" aria-hidden="true"><span class="logo-line">FREEDOM</span><span class="logo-line"><span class="logo-w">DOG</span><span class="logo-w">CO</span></span></span></a>
     <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -41,7 +41,7 @@
 </section>
 
 <footer>
-  <p>© 2026 Rescue Haven – All Rights Reserved</p>
+  <p>&copy; 2026 Freedom Dog Co &ndash; All Rights Reserved</p>
   <div class="footer-links">
     <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
   </div>
@@ -51,7 +51,7 @@
 <script>
 async function loadFaq() {
   const container = document.getElementById('faq-list');
-  container.innerHTML = '<p class="no-results">Loading questions…</p>';
+  container.innerHTML = '<p class="no-results">Loading questions&hellip;</p>';
 
   try {
     const url = window.hfaDataJsonUrl ? window.hfaDataJsonUrl('faq.json') : 'faq.json';
@@ -68,16 +68,19 @@ async function loadFaq() {
     }
 
     container.innerHTML = '';
+    const fix = (s) => (window.hfaRepairUtf8Mojibake ? window.hfaRepairUtf8Mojibake(String(s || '')) : String(s || ''));
     items.forEach((item, idx) => {
+      const q = fix(item.question || 'Untitled question').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const a = fix(item.answer || '');
       const wrapper = document.createElement('div');
       wrapper.className = 'faq-item';
       wrapper.innerHTML = `
         <button class="faq-question" aria-expanded="false" aria-controls="faq-${idx}">
-          <span>${item.question || 'Untitled question'}</span>
+          <span>${q}</span>
           <span class="faq-arrow">+</span>
         </button>
         <div id="faq-${idx}" class="faq-answer" hidden>
-          ${item.answer || ''}
+          ${a}
         </div>
       `;
       container.appendChild(wrapper);
@@ -93,7 +96,7 @@ async function loadFaq() {
       btn.setAttribute('aria-expanded', String(!expanded));
       panel.hidden = expanded;
       const arrow = btn.querySelector('.faq-arrow');
-      if (arrow) arrow.textContent = expanded ? '+' : '–';
+      if (arrow) arrow.textContent = expanded ? '+' : '-';
     });
   } catch (err) {
     console.error('Failed to load FAQ:', err);

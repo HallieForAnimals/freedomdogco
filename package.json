@@ -1,0 +1,12 @@
+{
+  "name": "freedom-dog-site",
+  "private": true,
+  "description": "Static site for Cloudflare Pages; local forms/API via node server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "deploy": "wrangler pages deploy . --project-name=freedom-dog-site"
+  },
+  "devDependencies": {
+    "wrangler": "^3.114.0"
+  }
+}

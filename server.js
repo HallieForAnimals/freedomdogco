@@ -8,6 +8,8 @@ const INBOX_SECRET = String(process.env.INBOX_SECRET || 'demo-inbox-secret');
 const ROOT = __dirname;
 const DATA_DIR = path.join(ROOT, 'data');
 const INBOX_FILE = path.join(DATA_DIR, 'inbox.json');
+/** Deduped rollup by email for adoption / foster / volunteer / contact (local demo only). */
+const APPLICANTS_INDEX_FILE = path.join(DATA_DIR, 'applicants-index.json');
 
 function ensureInboxStore() {
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -28,6 +30,85 @@ function readInbox() {
 function writeInbox(items) {
   ensureInboxStore();
   fs.writeFileSync(INBOX_FILE, JSON.stringify(items, null, 2), 'utf8');
+}
+
+function readApplicantsIndex() {
+  ensureInboxStore();
+  try {
+    const raw = fs.readFileSync(APPLICANTS_INDEX_FILE, 'utf8');
+    const o = JSON.parse(raw);
+    if (o && typeof o === 'object' && !Array.isArray(o) && o.applicants && typeof o.applicants === 'object') {
+      return o;
+    }
+  } catch (_) {}
+  return { applicants: {}, updatedAt: null };
+}
+
+function writeApplicantsIndex(doc) {
+  ensureInboxStore();
+  doc.updatedAt = new Date().toISOString();
+  fs.writeFileSync(APPLICANTS_INDEX_FILE, JSON.stringify(doc, null, 2), 'utf8');
+}
+
+function extractEmailFromPayload(data) {
+  if (!data || typeof data !== 'object') return '';
+  const direct = ['email', 'Email', 'e-mail', 'E-mail'];
+  for (const k of direct) {
+    const v = data[k];
+    if (v != null && String(v).trim()) return String(v).trim().toLowerCase();
+  }
+  for (const k of Object.keys(data)) {
+    if (k.startsWith('__')) continue;
+    if (/email/i.test(k) && data[k] != null && String(data[k]).trim()) {
+      return String(data[k]).trim().toLowerCase();
+    }
+  }
+  return '';
+}
+
+function extractNameFromPayload(data) {
+  if (!data || typeof data !== 'object') return '';
+  return String(data.name || data.Name || data.fullName || data.full_name || '').trim();
+}
+
+function normalizeApplicantKind(kindStr) {
+  const s = String(kindStr || '').toLowerCase();
+  if (s.includes('foster')) return 'foster';
+  if (s.includes('adoption') || s.includes('adopt')) return 'adoption';
+  if (s.includes('volunteer')) return 'volunteer';
+  if (s.includes('contact')) return 'contact';
+  return 'other';
+}
+
+function mergeApplicantFromItem(item) {
+  const data = item.data || {};
+  const email = extractEmailFromPayload(data);
+  if (!email) return;
+  const kind = normalizeApplicantKind(item.kind);
+  const name = extractNameFromPayload(data);
+  const idx = readApplicantsIndex();
+  const applicants = idx.applicants || {};
+  const key = email;
+  const now = item.receivedAt || new Date().toISOString();
+  if (!applicants[key]) {
+    applicants[key] = {
+      email,
+      name: name || '',
+      kinds: [],
+      firstSubmittedAt: now,
+      lastSubmittedAt: now,
+      submissionCount: 0,
+      byKind: {}
+    };
+  }
+  const a = applicants[key];
+  if (name && !a.name) a.name = name;
+  a.lastSubmittedAt = now;
+  a.submissionCount += 1;
+  if (!a.kinds.includes(kind)) a.kinds.push(kind);
+  a.byKind[kind] = (a.byKind[kind] || 0) + 1;
+  idx.applicants = applicants;
+  writeApplicantsIndex(idx);
 }
 
 function json(res, status, payload) {
@@ -128,6 +209,11 @@ const server = http.createServer(async (req, res) => {
       };
       inbox.unshift(item);
       writeInbox(inbox.slice(0, 2000));
+      try {
+        mergeApplicantFromItem(item);
+      } catch (e) {
+        console.warn('Applicants index merge failed:', e && e.message ? e.message : e);
+      }
       return json(res, 200, { ok: true, id });
     } catch (e) {
       return json(res, 400, { ok: false, error: e.message || 'Bad request' });
@@ -139,6 +225,16 @@ const server = http.createServer(async (req, res) => {
     const limit = Math.max(1, Math.min(500, Number(url.searchParams.get('limit') || 100)));
     const items = readInbox().slice(0, limit);
     return json(res, 200, { ok: true, items });
+  }
+
+  /** Same auth as inbox; returns deduped applicant rollup (local demo). */
+  if (req.method === 'GET' && url.pathname === '/api/applicants') {
+    if (!isAuthorized(req)) return json(res, 401, { ok: false, error: 'Unauthorized' });
+    const doc = readApplicantsIndex();
+    const list = Object.values(doc.applicants || {}).sort((a, b) =>
+      String(b.lastSubmittedAt || '').localeCompare(String(a.lastSubmittedAt || ''))
+    );
+    return json(res, 200, { ok: true, updatedAt: doc.updatedAt, count: list.length, applicants: list });
   }
 
   if (req.method === 'DELETE' && url.pathname.startsWith('/api/inbox/')) {
@@ -157,4 +253,6 @@ server.listen(PORT, () => {
   ensureInboxStore();
   console.log(`Proto site server running on http://localhost:${PORT}`);
   console.log(`Inbox API: GET http://localhost:${PORT}/api/inbox`);
+  console.log(`Applicants rollup: GET http://localhost:${PORT}/api/applicants (same auth as inbox)`);
+  console.log(`Written to ${path.relative(ROOT, INBOX_FILE)} and ${path.relative(ROOT, APPLICANTS_INDEX_FILE)}`);
 });

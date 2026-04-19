@@ -1,0 +1,6 @@
+# Cloudflare Pages — deploy from repo root (static HTML/CSS/JS).
+# Dashboard: connect this Git repo, framework "None", build command empty, output "/".
+# CLI: npm run deploy (after npx wrangler login)
+name = "freedom-dog-site"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "."

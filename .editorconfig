@@ -1,0 +1,11 @@
+# https://editorconfig.org - keep text as UTF-8 so punctuation never turns into "â€" mojibake.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+[*.{html,css,js,json,md}]
+indent_style = space
+indent_size = 2

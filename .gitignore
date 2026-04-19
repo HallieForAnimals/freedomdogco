@@ -2,3 +2,7 @@ node_modules/
 .env
 .env.*
 *.log
+
+# Local submission store (may contain PII); server.js recreates if missing
+data/inbox.json
+data/applicants-index.json

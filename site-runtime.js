@@ -1,5 +1,26 @@
 ;(function () {
   const cfg = window.HFA_SITE || {};
+
+  /**
+   * Fix UTF-8 text that was mis-decoded as Latin-1 (shows as "â€" garbage). Safe for strings with only U+0000-U+00FF.
+   */
+  function repairLikelyUtf8Mojibake(text) {
+    if (!text || typeof text !== 'string') return text;
+    if (!/\u00e2\u20ac|\u00c3[\u00a2\u00a9\u00a0-\u00ff]|\u00ef\u00bf\u00bd/.test(text)) return text;
+    for (var i = 0; i < text.length; i++) {
+      if (text.charCodeAt(i) > 255) return text;
+    }
+    try {
+      var bytes = new Uint8Array(text.length);
+      for (var j = 0; j < text.length; j++) bytes[j] = text.charCodeAt(j) & 0xff;
+      var fixed = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+      return fixed.indexOf('\uFFFD') !== -1 ? text : fixed;
+    } catch (_) {
+      return text;
+    }
+  }
+
+  window.hfaRepairUtf8Mojibake = repairLikelyUtf8Mojibake;
   const isLocal = /^(localhost|127\.0\.0\.1)$/i.test(location.hostname);
   const rawBase = (cfg.githubRawDataBase || 'https://raw.githubusercontent.com/ProtectThePack/page-updater-proto/main').replace(/\/+$/, '');
   /** Proto analytics worker (page beacons + custom events). Override with HFA_SITE.trackerApiBase. */
@@ -23,7 +44,7 @@
     }
   }
 
-  /** POST /api/beacon — same format as proto-analytics Worker. */
+  /** POST /api/beacon - same format as proto-analytics Worker. */
   function postPageBeacon() {
     var beaconUrl = cfg.selfHostedBeacon;
     if (!beaconUrl && trackerOrigin) beaconUrl = trackerOrigin + '/api/beacon';
@@ -40,7 +61,7 @@
     } catch (_) {}
   }
 
-  /** POST /api/custom-event — names + props for dashboards. */
+  /** POST /api/custom-event - names + props for dashboards. */
   function sendCustomEvent(name, props) {
     if (!trackerOrigin) return;
     var payload = {
@@ -113,9 +134,10 @@
       const data = await res.json();
       if (!data || data.enabled === false || !data.message) return;
       const link = (data.link || '').trim();
+      const msg = repairLikelyUtf8Mojibake(String(data.message));
       const inner = link
-        ? '<a href="' + link + '" style="color:inherit; text-decoration:none;">' + data.message + '</a>'
-        : data.message;
+        ? '<a href="' + link + '" style="color:inherit; text-decoration:none;">' + msg + '</a>'
+        : msg;
       root.innerHTML = '<div class="announcement-bar">' + inner + '</div>';
     } catch (e) {
       console.warn('Announcement load failed:', e);
@@ -196,16 +218,31 @@
   window.hfaLoadAnnouncement = loadAnnouncement;
   window.hfaAttachContactForm = attachContactForm;
 
+  var HFA_PREFILL_DOG_KEY = 'hfa_prefill_adopt_dog';
+
   /**
    * When opening adoption-application.html?dog=Name (or dogName / interested_dog) from an adoptable-dog card,
-   * pre-fill the "dog" field if present and empty.
+   * pre-fill the "dog" field. Query / session wins over empty or browser autofill when the user came from a card.
    */
   function prefillAdoptionDogFromQuery() {
     try {
       var params = new URLSearchParams(location.search);
-      var dog = params.get('dog') || params.get('dogName') || params.get('interested_dog');
-      if (!dog) return;
-      dog = decodeURIComponent(String(dog)).trim();
+      var raw =
+        params.get('dog') ||
+        params.get('dogName') ||
+        params.get('interested_dog') ||
+        params.get('Dog');
+      if (!raw) {
+        try {
+          raw = sessionStorage.getItem(HFA_PREFILL_DOG_KEY);
+          if (raw) sessionStorage.removeItem(HFA_PREFILL_DOG_KEY);
+        } catch (_) {
+          raw = null;
+        }
+      }
+      if (!raw) return;
+      // URLSearchParams.get() already decodes percent-escapes; decodeURIComponent() throws on names like "50% Poodle".
+      var dog = String(raw).trim();
       if (!dog) return;
       var form =
         document.getElementById('adoption-application-form') ||
@@ -215,14 +252,24 @@
         form.querySelector('input[name="dog"]') ||
         form.querySelector('textarea[name="dog"]') ||
         document.getElementById('cf-dog');
-      if (input && !String(input.value || '').trim()) input.value = dog;
-    } catch (_) {}
+      if (input) input.value = dog;
+    } catch (e) {
+      console.warn('prefillAdoptionDogFromQuery:', e);
+    }
   }
 
   window.hfaPrefillAdoptionDogFromQuery = prefillAdoptionDogFromQuery;
 
-  document.addEventListener('DOMContentLoaded', function () {
-    prefillAdoptionDogFromQuery();
+  /** Stash dog name when leaving adoptable-dogs so prefill still works if the query string is dropped (redirects, some hosts). */
+  window.hfaStashAdoptionPrefillDog = function (name) {
+    var s = name != null ? String(name).trim() : '';
+    if (!s) return;
+    try {
+      sessionStorage.setItem(HFA_PREFILL_DOG_KEY, s);
+    } catch (_) {}
+  };
+
+  function initPageRuntime() {
     document.querySelectorAll('form.contact-form').forEach((form) => {
       const wrap = form.closest('.contact-form-wrapper') || form.parentElement;
       const success = wrap ? wrap.querySelector('.contact-form-success') : null;
@@ -231,8 +278,22 @@
       if (!success.id) success.id = form.id + '-success';
       attachContactForm('#' + form.id, '#' + success.id);
     });
+    prefillAdoptionDogFromQuery();
+    window.addEventListener('load', function () {
+      prefillAdoptionDogFromQuery();
+    });
     initAnalytics();
     loadAnnouncement();
     loadAds();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPageRuntime);
+  } else {
+    initPageRuntime();
+  }
+
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) prefillAdoptionDogFromQuery();
   });
 })();

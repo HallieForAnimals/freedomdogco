@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>How to Help | Rescue Haven</title>
+  <title>How to Help | Freedom Dog Co</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,7 +12,7 @@
 
 <header>
   <nav>
-    <a href="index.html" class="logo">RESCUE HAVEN</a>
+    <a href="index.html" class="logo"><img src="images/logo.png" alt="Freedom Dog Co" class="logo-img"><span class="logo-text" aria-hidden="true"><span class="logo-line">FREEDOM</span><span class="logo-line"><span class="logo-w">DOG</span><span class="logo-w">CO</span></span></span></a>
     <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -36,10 +36,27 @@
   <div class="page-content">
     <p>This page is managed by the Page Updater. Edit the intro and the Q&amp;A list there.</p>
   </div>
+
+  <div class="contact-form-wrapper" style="margin-top:2rem;">
+    <h2 class="page-title" style="font-size:1.35rem; margin-bottom:0.5rem;">Volunteer interest</h2>
+    <p style="color:var(--text-muted); margin-bottom:1rem; max-width:40rem;">Tell us how you&rsquo;d like to help. We&rsquo;ll follow up when we have a match.</p>
+    <form class="contact-form" action="#" method="post" id="volunteer-interest-form" data-form-kind="volunteer">
+      <label for="vol-name">Full name</label>
+      <input type="text" id="vol-name" name="name" placeholder="Your full name" required>
+      <label for="vol-email">Email</label>
+      <input type="email" id="vol-email" name="email" placeholder="Your email" required>
+      <label for="vol-phone">Phone</label>
+      <input type="tel" id="vol-phone" name="phone" placeholder="Optional">
+      <label for="vol-interests">Interests &amp; availability</label>
+      <textarea id="vol-interests" name="message" placeholder="Events, transport, fundraising, dog walking, skills you want to share…" required rows="4"></textarea>
+      <button type="submit" class="btn">Send volunteer interest</button>
+    </form>
+    <p id="volunteer-interest-form-success" class="contact-form-success" style="display:none;">Thank you! We&rsquo;ll be in touch.</p>
+  </div>
 </section>
 
 <footer>
-  <p>© 2026 Rescue Haven – All Rights Reserved</p>
+  <p>© 2026 Freedom Dog Co – All Rights Reserved</p>
   <div class="footer-links">
     <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
   </div>

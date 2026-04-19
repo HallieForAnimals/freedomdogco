@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Adoption Application | Rescue Haven</title>
+  <title>Adoption Application | Freedom Dog Co</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -13,7 +13,7 @@
 
 <header>
   <nav>
-    <a href="index.html" class="logo">RESCUE HAVEN</a>
+    <a href="index.html" class="logo"><img src="images/logo.png" alt="Freedom Dog Co" class="logo-img"><span class="logo-text" aria-hidden="true"><span class="logo-line">FREEDOM</span><span class="logo-line"><span class="logo-w">DOG</span><span class="logo-w">CO</span></span></span></a>
     <button type="button" class="burger-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -35,7 +35,7 @@
     Ready to welcome a new family member? Fill out the form below to start the adoption process.
   </p>
   <div class="page-content">
-    <p>If you arrived here from a dog’s profile, their name should appear under “Dog(s) interested in.” You can change it if you’re interested in more than one dog.</p>
+    <p>If you arrived here from a dog&rsquo;s profile, their name should appear under &ldquo;Dog(s) interested in.&rdquo; You can change it if you&rsquo;re interested in more than one dog.</p>
   </div>
   <div class="contact-form-wrapper">
     <form class="contact-form" action="#" method="post" id="adoption-application-form" data-form-kind="adoption">
@@ -51,19 +51,56 @@
       <textarea id="cf-experience" name="experience" placeholder="Tell us about your home, experience with dogs, and why you want to adopt." required rows="4"></textarea>
       <button type="submit" class="btn">Submit adoption application</button>
     </form>
+    <script>
+    /* Inline prefill: runs with this HTML so GitHub Pages CDN caching an old site-runtime.js cannot block the dog name. */
+    (function () {
+      var KEY = 'hfa_prefill_adopt_dog';
+      function apply() {
+        try {
+          var params = new URLSearchParams(location.search);
+          var raw =
+            params.get('dog') ||
+            params.get('dogName') ||
+            params.get('interested_dog') ||
+            params.get('Dog');
+          if (!raw) {
+            try {
+              raw = sessionStorage.getItem(KEY);
+              if (raw) sessionStorage.removeItem(KEY);
+            } catch (e) {
+              raw = null;
+            }
+          }
+          if (!raw) return;
+          var dog = String(raw).trim();
+          if (!dog) return;
+          var el = document.getElementById('cf-dog');
+          if (el) el.value = dog;
+        } catch (e) {}
+      }
+      apply();
+      document.addEventListener('DOMContentLoaded', apply);
+      window.addEventListener('load', apply);
+      window.addEventListener('pageshow', function (ev) {
+        if (ev.persisted) apply();
+      });
+      setTimeout(apply, 50);
+      setTimeout(apply, 400);
+    })();
+    </script>
     <p id="adoption-application-form-success" class="contact-form-success" style="display:none;">Thank you! We've received your application and will be in touch soon.</p>
   </div>
-  <script src="site-runtime.js"></script>
 </section>
 
 <footer>
-  <p>© 2026 Rescue Haven – All Rights Reserved</p>
+  <p>&copy; 2026 Freedom Dog Co &ndash; All Rights Reserved</p>
   <div class="footer-links">
     <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy.html">Privacy Policy</a>
   </div>
 </footer>
 
 <div class="ad-slot ad-slot-banner" data-ad-slot="banner_above_footer"></div>
+<script src="site-runtime.js"></script>
 <script>
 (function(){var btn=document.querySelector('.burger-btn');var links=document.querySelector('.nav-links');if(btn&&links){btn.addEventListener('click',function(){var open=links.classList.toggle('nav-open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');});links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');});});}})();
 </script>
