@@ -1,5 +1,12 @@
 [
   {
+    "kind": "page",
+    "target": "contact.html",
+    "detail": "Contact page",
+    "user": "owner",
+    "time": "2026-04-28T18:05:24.521Z"
+  },
+  {
     "kind": "data",
     "target": "header.json",
     "detail": "Header & nav",
