@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "title": "CTA",
+    "version": 1
+  },
+  "links": [
+    {
+      "ctaType": "email",
+      "updateIncludeEmail": false,
+      "updateSummary": "",
+      "updateDate": "",
+      "updateStatus": "",
+      "caseId": "yalova-cat-abuser",
+      "slug": "arrest-yalova-cat-abuser-20260510",
+      "status": "recent",
+      "role": "original",
+      "title": "Arrest Yalova Cat Abuser",
+      "mailtoSubject": "Hayvan İstismarı Konusunda Soruşturma Talebi/Request For An Investigation Into Animal Abuse",
+      "summary": "",
+      "description": "SEND THE ONE-CLICK EMAIL IN MY BIO TO YALOVA AUTHORITIES TITLED \"ARREST YALOVA CAT ABUSER\"❗️\n\nCall:\nYalova Valiliği: +90 226 811 5069\nYalova Emniyet Müdürlüğü: +90 226 811 3000\nYalova Belediyesi Call Center: +90 552 505 7777\n\nApparently throwing cats out of multi-storey apartment windows passes for comedy in Turkey.\nLet's see if they're still laughing when the cops show up at their door.\n\n#yalova #turkey #dogsofinstagram",
+      "descriptionLong": "SEND THE ONE-CLICK EMAIL IN MY BIO TO YALOVA AUTHORITIES TITLED \"ARREST YALOVA CAT ABUSER\"❗️\n\nCall:\nYalova Valiliği: +90 226 811 5069\nYalova Emniyet Müdürlüğü: +90 226 811 3000\nYalova Belediyesi Call Center: +90 552 505 7777\n\nApparently throwing cats out of multi-storey apartment windows passes for comedy in Turkey.\nLet's see if they're still laughing when the cops show up at their door.\n\n#yalova #turkey #dogsofinstagram",
+      "mailtoBody": "İlgili makamlara,\n\nYaygın olarak paylaşılan bir videoda da görüldüğü üzere, Yalova’da bir kedinin üst kattaki bir apartman penceresinden kasten aşağı atıldığı korkunç hayvan istismarı olayını bildirmek amacıyla bu mektubu yazıyorum. Faillerin derhal tespit edilmesini, tutuklanmasını ve Türkiye’nin 5199 sayılı Hayvanları Koruma Kanunu uyarınca en ağır şekilde yargılanmasını talep ediyorum.\n\nLütfen acil bir soruşturma başlatın ve kamuoyunu gelişmelerden haberdar edin.\n\nVideo kanıtı: https://drive.google.com/file/d/1gyLWTL8IkNGvHFUrrZSgEm90eIo-bjyC/view?usp=sharing\n\nSaygılarımızla,\n\n\n\n@HallieForAnimals Ekibi\ncontact@hallieforanimals.org\n\n\n\n\nTo whom it may concern,\n\nI am writing to report the horrific animal cruelty incident in Yalova in which a cat was deliberately thrown from an upper-floor apartment window, as seen in a widely shared video. I demand that the perpetrators be immediately identified, arrested, and prosecuted to the fullest extent under Turkey’s Animal Protection Law No. 5199.\n\nPlease launch an urgent investigation and keep the public informed of the progress.\n\nVideo evidence: https://drive.google.com/file/d/1gyLWTL8IkNGvHFUrrZSgEm90eIo-bjyC/view?usp=sharing\n\nSincerely,\n\n\n\n@HallieForAnimals Team\ncontact@hallieforanimals.org",
+      "recipients": [
+        "yalova@icisleri.gov.tr",
+        "77basin@icisleri.gov.tr",
+        "yalova155@egm.gov.tr",
+        "yalovacbs@adalet.gov.tr",
+        "info@yalova.bel.tr"
+      ],
+      "phones": [],
+      "callScript": "I'm calling to report a severe case of animal cruelty in Yalova where a cat was thrown from an upper-floor apartment window, as shown in the viral video. I demand that the authorities immediately identify, arrest, and prosecute the individuals responsible under Turkey's Animal Protection Law 5199.",
+      "videoEmbedUrl": "https://drive.google.com/file/d/1gyLWTL8IkNGvHFUrrZSgEm90eIo-bjyC/preview",
+      "evidenceUrl": "",
+      "shortlinkUrl": "https://go.hallieforanimals.org/t/arrest-yalova-cat-abuser-20260510",
+      "caption": "SEND THE ONE-CLICK EMAIL IN MY BIO TO YALOVA AUTHORITIES TITLED \"ARREST YALOVA CAT ABUSER\"❗️\n\nCall:\nYalova Valiliği: +90 226 811 5069\nYalova Emniyet Müdürlüğü: +90 226 811 3000\nYalova Belediyesi Call Center: +90 552 505 7777\n\nApparently throwing cats out of multi-storey apartment windows passes for comedy in Turkey.\nLet's see if they're still laughing when the cops show up at their door.\n\n#yalova #turkey #dogsofinstagram",
+      "captionBuilder": {
+        "type": "cta",
+        "subtype": "empty",
+        "targets": "Yalova Authorities",
+        "state": "Yalova",
+        "city": "Yalova",
+        "country": "Türkiye",
+        "dial": "+90",
+        "phones": [
+          {
+            "who": "Yalova Valiliği",
+            "code": "+90",
+            "number": "226 811 5069",
+            "ext": ""
+          },
+          {
+            "who": "Yalova Emniyet Müdürlüğü",
+            "code": "+90",
+            "number": "226 811 3000",
+            "ext": ""
+          },
+          {
+            "who": "Yalova Belediyesi Call Center",
+            "code": "+90",
+            "number": "552 505 7777",
+            "ext": ""
+          }
+        ]
+      },
+      "nonEmailActionUrl": "",
+      "nonEmailActionText": "",
+      "actionUrl": "",
+      "actionText": "",
+      "hidden": false,
+      "postToUpdates": true,
+      "createdAt": "2026-05-10T22:52:51Z",
+      "updatedAt": "2026-05-10T22:52:51Z"
+    }
+  ]
+}
